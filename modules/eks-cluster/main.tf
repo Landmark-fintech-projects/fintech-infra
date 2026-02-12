@@ -176,7 +176,7 @@ resource "kubernetes_cluster_role_binding" "eks_admins_binding" {
 }
 
 ##############################################
-# Kubernetes Namespaces with depends_on.
+# Kubernetes Namespaces with depends_on
 ##############################################
 
 resource "kubernetes_namespace" "fintech" {

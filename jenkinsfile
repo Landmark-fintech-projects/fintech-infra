@@ -9,13 +9,13 @@ pipeline {
   parameters {
     choice(name: 'BRANCH', choices: ['release', 'dev', 'main'], description: 'Git branch to build')
     choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Terraform action')
-    string(name: 'REGION', defaultValue: 'us-east-2', description: 'AWS Region')
+    string(name: 'REGION', defaultValue: 'us-east-1', description: 'AWS Region')
     booleanParam(name: 'DEPLOY_OVERRIDE', defaultValue: false,
       description: 'Enable deploy on non-release branches (dev or main)')
   }
 
   environment {
-    AWS_REGION = "${params.REGION ?: 'us-east-2'}"
+    AWS_REGION = "${params.REGION ?: 'us-east-1'}"
     GIT_REPO  = 'https://github.com/ndiforfusi/fintech-infra.git'
   }
 

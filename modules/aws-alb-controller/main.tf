@@ -2,7 +2,7 @@
 # Service Account for IRSA
 ################################################################################
 
-resource "kubernetes_service_account" "service_account" {
+resource "kubernetes_service_account_v1" "service_account" {
   metadata {
     name      = "aws-load-balancer-controller"
     namespace = "kube-system"
@@ -16,7 +16,7 @@ resource "kubernetes_service_account" "service_account" {
 # IAM Role for Service Account (IRSA)
 ################################################################################
 
-resource "aws_iam_role" "lb_controller" {
+resource "aws_iam_role_v1" "lb_controller" {
   name = "${var.cluster_name}-aws-load-balancer-controller"
 
   assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
@@ -88,7 +88,7 @@ data "aws_iam_policy_document" "lb_controller_policy" {
   }
 }
 
-resource "aws_iam_role_policy" "lb_controller_inline_policy" {
+resource "aws_iam_role_policy_v1" "lb_controller_inline_policy" {
   name = "${var.cluster_name}-aws-load-balancer-policy"
   role = aws_iam_role.lb_controller.id
   policy = data.aws_iam_policy_document.lb_controller_policy.json
@@ -98,7 +98,7 @@ resource "aws_iam_role_policy" "lb_controller_inline_policy" {
 # Helm Release: AWS Load Balancer Controller
 ################################################################################
 
-resource "helm_release" "lb" {
+resource "helm_release_v1" "lb" {
   name       = "aws-load-balancer-controller"
   repository = "https://aws.github.io/eks-charts"
   chart      = "aws-load-balancer-controller"
@@ -106,7 +106,7 @@ resource "helm_release" "lb" {
   create_namespace = true
 
   depends_on = [
-    kubernetes_service_account.service_account,
+    kubernetes_service_account_v1.service_account,
     aws_iam_role.lb_controller
   ]
 

@@ -160,7 +160,7 @@ Choose:
 
 ACTION: apply (default) or destroy
 
-REGION: us-east-2 (default) or your choice
+REGION: us-east-1 (default) or your choice
 
 DEPLOY_OVERRIDE: true only if you’re on dev/main and want a deploy
 
